@@ -1,0 +1,752 @@
+openapi: 3.0.0
+info:
+  title: contact-api
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /v1/contacts:
+    parameters: []
+    get:
+      summary: Get Contacts
+      tags: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  contacts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Contact'
+                required:
+                  - pagination
+                  - contacts
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples: {}
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+      operationId: get-contacts
+      description: Get a list of contacts
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - schema:
+            type: string
+          in: query
+          name: sortBy
+          description: Sort results based on the field. Default order is by date of creation
+        - $ref: '#/components/parameters/order'
+    post:
+      summary: Create a contact
+      operationId: post-contacts
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Contact'
+            examples: {}
+      description: Create new contact
+  '/v1/contacts/{contactId}':
+    parameters:
+      - $ref: '#/components/parameters/contactId'
+    get:
+      summary: Get a specific contact
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-contacts-contactId
+      description: Get a specific contact based on the contact ID
+    put:
+      summary: Update a contact
+      operationId: put-contacts-contactId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: Update a specific contact based on the contact ID
+    delete:
+      summary: Delete a contact
+      operationId: delete-contacts-contactId
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: Delete a specific contact based on the contact ID
+  '/v1/contacts/{contactId}/addresses':
+    parameters:
+      - $ref: '#/components/parameters/contactId'
+    get:
+      summary: Get list of addresses for contact
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  addresses:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Address'
+                required:
+                  - pagination
+                  - addresses
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-addresses
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/sortBy'
+        - $ref: '#/components/parameters/order'
+      description: Get a specific contact's addresses
+    post:
+      summary: Add an address
+      operationId: post-address
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Address'
+      description: Add a new address to a specific contact
+  '/v1/contacts/{contactId}/addresses/{addressId}':
+    parameters:
+      - $ref: '#/components/parameters/contactId'
+      - $ref: '#/components/parameters/addressId'
+    get:
+      summary: Get specific address
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-address
+      description: Get a specific address
+    put:
+      summary: Update specific address
+      operationId: put-address
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                    - home
+                    - work
+                streetNumber:
+                  type: string
+                  minLength: 1
+                street:
+                  type: string
+                  minLength: 1
+                unit:
+                  type:
+                    - string
+                    - 'null'
+                city:
+                  type: string
+                  minLength: 1
+                state:
+                  type: string
+                  pattern: '^[A-Z]{2}$'
+                  minLength: 2
+                  maxLength: 2
+                zipCode:
+                  type: string
+                  minLength: 1
+      description: Update a specific address
+    delete:
+      summary: Delete specific address
+      operationId: delete-address
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Delete a specific address
+  '/v1/contacts/{contactId}/communications':
+    parameters:
+      - $ref: '#/components/parameters/contactId'
+    get:
+      summary: Get list of communication channels
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  communications:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Communication'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-contacts
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/sortBy'
+        - $ref: '#/components/parameters/order'
+      description: Get list of communication channels for a contact
+    post:
+      summary: Add a new communication channel
+      operationId: post-contacts
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Communication'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Communication'
+      description: Add a communication channel to a specific contact
+  '/v1/contacts/{contactId}/communications/{commId}':
+    parameters:
+      - $ref: '#/components/parameters/contactId'
+      - $ref: '#/components/parameters/commId'
+    get:
+      summary: Get specific communication channel
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Communication'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-contact
+      description: 'Get specific communication channel '
+    put:
+      summary: Update communication channel
+      operationId: put-contact
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Communication'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              minProperties: 1
+              properties:
+                value:
+                  type: string
+                preferred:
+                  type: boolean
+      description: Update a specific communication channel
+    delete:
+      summary: Delete specific communication channel
+      operationId: delete-contact
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: Delete specific communication channel
+components:
+  schemas:
+    Contact:
+      title: Contact
+      type: object
+      x-examples:
+        example-1:
+          id: 1
+          firstName: string
+          lastName: string
+          dateOfBirth: string
+          gender: M
+          title: Manager
+          addresses:
+            - type: home
+              streetNumber: '1234'
+              street: Foo Bar St
+              unit: null
+              city: New York
+              state: NY
+              zipCode: '12345'
+          communications:
+            - type: email
+              value: string
+              preferred: true
+      description: ''
+      properties:
+        firstName:
+          type: string
+          minLength: 1
+        lastName:
+          type: string
+          minLength: 1
+        dateOfBirth:
+          type: string
+          format: date
+          minLength: 1
+        gender:
+          type:
+            - string
+            - 'null'
+          enum:
+            - M
+            - F
+            - 'N'
+        title:
+          type:
+            - string
+            - 'null'
+        addresses:
+          type:
+            - array
+            - 'null'
+          items:
+            $ref: '#/components/schemas/Address'
+        communications:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Communication'
+        id:
+          type: integer
+          readOnly: true
+      required:
+        - firstName
+        - lastName
+        - dateOfBirth
+        - communications
+        - id
+    Communication:
+      title: Address
+      type: object
+      x-examples:
+        email-example:
+          id: 1
+          type: email
+          value: test@sample.com
+          preferred: true
+        phone-example:
+          id: 1
+          type: phone
+          value: 304-555-8282
+      properties:
+        type:
+          type: string
+          enum:
+            - email
+            - phone
+          minLength: 1
+        value:
+          type: string
+          minLength: 1
+        preferred:
+          type: boolean
+          default: false
+        id:
+          type: integer
+          readOnly: true
+      required:
+        - type
+        - value
+        - id
+    Address:
+      title: Address
+      type: object
+      x-examples:
+        example-1:
+          type: home
+          streetNumber: '1234'
+          street: Foo Bar St
+          unit: null
+          city: New York
+          state: NY
+          zipCode: '12345'
+      properties:
+        type:
+          type: string
+          minLength: 1
+          enum:
+            - home
+            - work
+        streetNumber:
+          type: string
+          minLength: 1
+        street:
+          type: string
+          minLength: 1
+        unit:
+          type:
+            - string
+            - 'null'
+        city:
+          type: string
+          minLength: 1
+        state:
+          type: string
+          minLength: 2
+          maxLength: 2
+          pattern: '^[A-Z]{2}$'
+        zipCode:
+          type: string
+          minLength: 1
+        id:
+          type: integer
+          readOnly: true
+      required:
+        - type
+        - streetNumber
+        - street
+        - city
+        - state
+        - zipCode
+        - id
+    Pagination:
+      title: Pagination
+      type: object
+      properties:
+        page:
+          type: integer
+        totalCount:
+          type: integer
+        count:
+          type: integer
+      required:
+        - page
+        - totalCount
+        - count
+      x-examples:
+        example-1:
+          page: 0
+          totalCount: 0
+          count: 0
+    Error:
+      title: Error
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+    Contact-Update:
+      title: Contact-Update
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        gender:
+          type:
+            - string
+            - 'null'
+          enum:
+            - M
+            - F
+            - 'N'
+        dateOfBirth:
+          type: string
+          format: date
+        title:
+          type:
+            - string
+            - 'null'
+  parameters:
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+      description: Page to show. Defaults to 1
+    sortBy:
+      name: sortBy
+      in: query
+      required: false
+      schema:
+        type: string
+    pageSize:
+      name: pageSize
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        default: 10
+      description: Size of page. Defaults to 10
+    order:
+      name: order
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - asc
+          - desc
+        default: desc
+      description: Ascending or descending order. Defaults to descending
+    contactId:
+      name: contactId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Id of contact
+    commId:
+      name: commId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Id of communications
+    addressId:
+      name: addressId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Id of address
+  examples: {}
+  responses: {}
