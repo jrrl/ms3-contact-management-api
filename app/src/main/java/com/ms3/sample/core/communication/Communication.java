@@ -1,8 +1,10 @@
 package com.ms3.sample.core.communication;
 
 import com.ms3.sample.core.contact.Contact;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,6 +12,8 @@ import javax.persistence.*;
 @Data
 @Builder
 @Table
+@AllArgsConstructor
+@NoArgsConstructor
 public class Communication {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id

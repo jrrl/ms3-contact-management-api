@@ -1,8 +1,10 @@
 package com.ms3.sample.core.address;
 
 import com.ms3.sample.core.contact.Contact;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,6 +12,8 @@ import javax.persistence.*;
 @Table
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Address {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
