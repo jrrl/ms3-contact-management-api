@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.With;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -26,9 +27,11 @@ public class ContactDTO {
 	Gender gender;
 	String title;
 	@With
+	@Valid
 	List<AddressDTO> addresses;
 	@NotEmpty
 	@With
+	@Valid
 	List<CommunicationDTO> communications;
 
 	public Contact toEntity() {
