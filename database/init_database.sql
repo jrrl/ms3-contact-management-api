@@ -1,35 +1,32 @@
-CREATE TABLE Contact (
-	id int IDENTITY(1,1),
-	firstName nvarchar(255) NOT NULL,
-	lastName nvarchar(255) NOT NULL,
-	dob date NOT NULL, 
-	gender char(1) NOT NULL, 
-	title nvarchar(255) NULL,
-	CONSTRAINT PK_Contact PRIMARY KEY (id), 
-	CONSTRAINT valid_gender CHECK(gender IN ('M', 'F', 'N')),
-	CONSTRAINT valid_dob CHECK (dob <= GETUTCDATE())
+create table contact (
+	id int identity not null, 
+	date_of_birth date not null, 
+	first_name varchar(255) not null, 
+	gender int, 
+	last_name varchar(255) not null, 
+	title varchar(255), 
+	constraint pk_contact primary key (id)
 );
 
-CREATE TABLE Address (
-	id int IDENTITY(1,1), 
-	contactId int NOT NULL,
-	type nvarchar(50) NOT NULL, 
-	number int NOT NULL, 
-	street nvarchar(255) NOT NULL, 
-	unit nvarchar(255) NULL, 
-	city nvarchar(100) NOT NULL, 
-	state char(2) NOT NULL, 
-	zipcode nvarchar(20) NOT NULL, 
-	CONSTRAINT PK_Address PRIMARY KEY (id), 
-	CONSTRAINT FK_Contact FOREIGN KEY (contactId) REFERENCES Contact(id)
-)
+create table address (
+	id int identity not null, 
+	city varchar(255) not null, 
+	state varchar(255) not null, 
+	street varchar(255) not null, 
+	street_number varchar(255) not null, 
+	type int not null, unit varchar(255), 
+	zip_code varchar(255) not null, 
+	contact_id int, 
+	constraint pk_address primary key (id),
+	constraint fk_address_contact foreign key (contact_id) references contact
+);
 
-CREATE TABLE Communication (
-	id int IDENTITY(1, 1), 
-	contactId int NOT NULL,
-	type nvarchar(20) NOT NULL, 
-	value nvarchar(255) NOT NULL, 
-	preferred bit NOT NULL DEFAULT 0, 
-	CONSTRAINT PK_Communication PRIMARY KEY (id), 
-	CONSTRAINT FK_Contact FOREIGN KEY (contactId) REFERENCES Contact(id)
-)
+create table communication (
+	id int identity not null, 
+	preferred bit not null, 
+	type int not null, 
+	value varchar(255) not null, 
+	contact_id int not null, 
+	constraint pk_communication primary key (id),
+	constraint fk_communication_contact foreign key (contact_id) references contact
+);
