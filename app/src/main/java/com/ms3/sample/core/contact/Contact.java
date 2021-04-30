@@ -31,9 +31,9 @@ public class Contact {
 	Gender gender;
 	@Column
 	String title;
-	@OneToMany(mappedBy = "contact")
+	@OneToMany(mappedBy = "contact", orphanRemoval = true)
 	List<Address> addresses;
-	@OneToMany(mappedBy = "contact")
+	@OneToMany(mappedBy = "contact", orphanRemoval = true)
 	List<Communication> communications;
 
 	public ContactDTO toDTO() {
