@@ -1,6 +1,6 @@
-package com.ms3.sample.core.communication;
+package com.ms3.sample.core.communication.model;
 
-import com.ms3.sample.core.contact.Contact;
+import com.ms3.sample.core.contact.model.Contact;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

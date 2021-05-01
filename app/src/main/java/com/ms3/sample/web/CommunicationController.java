@@ -1,8 +1,8 @@
 package com.ms3.sample.web;
 
-import com.ms3.sample.core.communication.CommunicationChangeSet;
-import com.ms3.sample.core.communication.CommunicationDTO;
-import com.ms3.sample.core.communication.CommunicationPage;
+import com.ms3.sample.core.communication.model.CommunicationChangeSet;
+import com.ms3.sample.core.communication.model.CommunicationDTO;
+import com.ms3.sample.core.communication.model.CommunicationPage;
 import com.ms3.sample.core.communication.CommunicationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

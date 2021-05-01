@@ -1,6 +1,6 @@
 package com.ms3.sample.core.address;
 
-import com.ms3.sample.core.contact.Contact;
+import com.ms3.sample.core.contact.model.Contact;
 import lombok.Builder;
 import lombok.Value;
 

@@ -1,8 +1,8 @@
 package com.ms3.sample.web;
 
-import com.ms3.sample.core.contact.ContactChangeSet;
-import com.ms3.sample.core.contact.ContactDTO;
-import com.ms3.sample.core.contact.ContactPage;
+import com.ms3.sample.core.contact.model.ContactChangeSet;
+import com.ms3.sample.core.contact.model.ContactDTO;
+import com.ms3.sample.core.contact.model.ContactPage;
 import com.ms3.sample.core.contact.ContactService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController

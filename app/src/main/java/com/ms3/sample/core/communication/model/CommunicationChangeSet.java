@@ -1,4 +1,4 @@
-package com.ms3.sample.core.communication;
+package com.ms3.sample.core.communication.model;
 
 import lombok.Value;
 

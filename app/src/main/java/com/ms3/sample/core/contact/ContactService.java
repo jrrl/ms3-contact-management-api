@@ -1,7 +1,8 @@
 package com.ms3.sample.core.contact;
 
-import java.util.List;
-import java.util.NoSuchElementException;
+import com.ms3.sample.core.contact.model.ContactChangeSet;
+import com.ms3.sample.core.contact.model.ContactDTO;
+import com.ms3.sample.core.contact.model.ContactPage;
 
 public interface ContactService {
 	ContactDTO createContact(ContactDTO newContact);

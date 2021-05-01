@@ -1,6 +1,10 @@
 package com.ms3.sample.core.communication;
 
 import com.ms3.sample.core.Pagination;
+import com.ms3.sample.core.communication.model.Communication;
+import com.ms3.sample.core.communication.model.CommunicationChangeSet;
+import com.ms3.sample.core.communication.model.CommunicationDTO;
+import com.ms3.sample.core.communication.model.CommunicationPage;
 import com.ms3.sample.core.contact.ContactRepo;
 import lombok.AllArgsConstructor;
 import lombok.val;

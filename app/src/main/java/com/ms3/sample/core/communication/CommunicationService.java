@@ -1,6 +1,8 @@
 package com.ms3.sample.core.communication;
 
-import java.util.List;
+import com.ms3.sample.core.communication.model.CommunicationChangeSet;
+import com.ms3.sample.core.communication.model.CommunicationDTO;
+import com.ms3.sample.core.communication.model.CommunicationPage;
 
 public interface CommunicationService {
 	CommunicationDTO createCommunication(int contactId, CommunicationDTO newCommunication);

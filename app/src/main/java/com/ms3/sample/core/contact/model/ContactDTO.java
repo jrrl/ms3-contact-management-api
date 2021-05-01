@@ -1,7 +1,7 @@
-package com.ms3.sample.core.contact;
+package com.ms3.sample.core.contact.model;
 
 import com.ms3.sample.core.address.AddressDTO;
-import com.ms3.sample.core.communication.CommunicationDTO;
+import com.ms3.sample.core.communication.model.CommunicationDTO;
 import lombok.Builder;
 import lombok.Value;
 import lombok.With;

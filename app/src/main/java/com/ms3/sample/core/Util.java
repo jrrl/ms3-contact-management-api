@@ -2,10 +2,10 @@ package com.ms3.sample.core;
 
 import com.ms3.sample.core.address.Address;
 import com.ms3.sample.core.address.AddressDTO;
-import com.ms3.sample.core.communication.Communication;
-import com.ms3.sample.core.communication.CommunicationDTO;
-import com.ms3.sample.core.contact.Contact;
-import com.ms3.sample.core.contact.ContactDTO;
+import com.ms3.sample.core.communication.model.Communication;
+import com.ms3.sample.core.communication.model.CommunicationDTO;
+import com.ms3.sample.core.contact.model.Contact;
+import com.ms3.sample.core.contact.model.ContactDTO;
 import lombok.val;
 
 import java.util.List;
