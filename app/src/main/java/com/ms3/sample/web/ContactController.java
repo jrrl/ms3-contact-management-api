@@ -16,7 +16,7 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/v1/contacts")
 @AllArgsConstructor
-public class WebController {
+public class ContactController {
 	private final ContactService contactService;
 
 	@PostMapping

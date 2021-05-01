@@ -108,7 +108,7 @@ public class ContactServiceImpl implements ContactService {
 	@Override
 	public void deleteContact(int contactId) {
 		if(!contactRepo.existsById(contactId)) {
-			throw new NoSuchElementException("");
+			throw new NoSuchElementException("Contact does not exist");
 		}
 		contactRepo.deleteById(contactId);
 	}
