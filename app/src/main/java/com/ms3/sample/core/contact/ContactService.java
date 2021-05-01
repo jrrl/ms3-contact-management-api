@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 public interface ContactService {
 	ContactDTO createContact(ContactDTO newContact);
-	List<ContactDTO> getAllContacts();
+	ContactPage getAllContacts(int page, int size, String sortField, String order);
 	ContactDTO getContact(int contactId);
 	ContactDTO updateContact(int contactId, ContactChangeSet contactUpdates);
 	void deleteContact(int contactId);

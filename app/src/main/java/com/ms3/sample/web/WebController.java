@@ -2,13 +2,16 @@ package com.ms3.sample.web;
 
 import com.ms3.sample.core.contact.ContactChangeSet;
 import com.ms3.sample.core.contact.ContactDTO;
+import com.ms3.sample.core.contact.ContactPage;
 import com.ms3.sample.core.contact.ContactService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/v1/contacts")
@@ -24,8 +27,12 @@ public class WebController {
 
 	@GetMapping
 	@ResponseBody
-	public List<ContactDTO> getContacts() {
-		return contactService.getAllContacts();
+	public ContactPage getContacts(
+		@RequestParam(value = "page", defaultValue = "1") int page,
+		@RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+		@RequestParam(value = "order", defaultValue = "desc") String order,
+		@RequestParam(value = "sortBy", defaultValue = "id") String sortBy) {
+		return contactService.getAllContacts(page, pageSize, sortBy, order);
 	}
 
 	@GetMapping("/{contactId}")
@@ -45,5 +52,10 @@ public class WebController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteContact(@PathVariable Integer contactId) {
 		contactService.deleteContact(contactId);
+	}
+
+	@ExceptionHandler
+	public ResponseEntity<String> handleNotFound(NoSuchElementException e) {
+		return ResponseEntity.notFound().build();
 	}
 }

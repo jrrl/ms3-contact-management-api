@@ -1,6 +1,7 @@
 package com.ms3.sample.core.contact;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ms3.sample.core.Pagination;
 import com.ms3.sample.core.Util;
 import com.ms3.sample.core.address.AddressDTO;
 import com.ms3.sample.core.address.AddressRepo;
@@ -9,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,12 +23,12 @@ import java.util.stream.Collectors;
 @Transactional
 @AllArgsConstructor
 public class ContactServiceImpl implements ContactService {
-	private static Logger logger = LoggerFactory.getLogger(ContactServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ContactServiceImpl.class);
 
-	private ContactRepo contactRepo;
-	private AddressRepo addressRepo;
-	private CommunicationRepo communicationRepo;
-	private ObjectMapper objectMapper;
+	private final ContactRepo contactRepo;
+	private final AddressRepo addressRepo;
+	private final CommunicationRepo communicationRepo;
+	private final ObjectMapper objectMapper;
 
 	@Override
 	public ContactDTO createContact(ContactDTO newContact) {
@@ -51,15 +54,27 @@ public class ContactServiceImpl implements ContactService {
 	}
 
 	@Override
-	public List<ContactDTO> getAllContacts() {
-		val contacts = contactRepo.findAll();
-		return contacts.parallelStream()
+	public ContactPage getAllContacts(int page, int size, String sortField, String order) {
+		val orderDirection = order == null || order.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+
+		val contacts = contactRepo.findAll(PageRequest.of(page - 1, size, Sort.by(orderDirection, sortField)));
+		val pagination = Pagination.builder()
+			.page(page)
+			.count(contacts.getNumberOfElements())
+			.totalCount((int) contacts.getTotalElements())
+			.build();
+		val results =  contacts.get()
 			.map(Util::toContactDTO)
 			.collect(Collectors.toList());
+		return new ContactPage(pagination, results);
 	}
 
 	@Override
 	public ContactDTO getContact(int contactId) {
+		if(!contactRepo.existsById(contactId)) {
+			throw new NoSuchElementException("Contact does not exist");
+		}
+
 		val contact = contactRepo.getOne(contactId);
 		return Util.toContactDTO(contact);
 	}
@@ -67,7 +82,7 @@ public class ContactServiceImpl implements ContactService {
 	@Override
 	public ContactDTO updateContact(int contactId, ContactChangeSet contactUpdates) {
 		if(!contactRepo.existsById(contactId)) {
-			throw new NoSuchElementException("");
+			throw new NoSuchElementException("Contact does not exist");
 		}
 
 		val contact = contactRepo.getOne(contactId);
