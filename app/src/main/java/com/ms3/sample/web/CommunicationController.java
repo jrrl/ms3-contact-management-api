@@ -1,8 +1,8 @@
 package com.ms3.sample.web;
 
+import com.ms3.sample.core.PageResponse;
 import com.ms3.sample.core.communication.model.CommunicationChangeSet;
 import com.ms3.sample.core.communication.model.CommunicationDTO;
-import com.ms3.sample.core.communication.model.CommunicationPage;
 import com.ms3.sample.core.communication.CommunicationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,7 +25,7 @@ public class CommunicationController {
 
 	@GetMapping
 	@ResponseBody
-	public CommunicationPage getCommunicationsForContact(
+	public PageResponse<CommunicationDTO> getCommunicationsForContact(
 		@PathVariable Integer contactId,
 		@RequestParam(value = "page", defaultValue = "1") int page,
 		@RequestParam(value = "pageSize", defaultValue = "10") int pageSize,

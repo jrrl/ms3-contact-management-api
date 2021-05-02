@@ -1,8 +1,8 @@
 package com.ms3.sample.web;
 
+import com.ms3.sample.core.PageResponse;
 import com.ms3.sample.core.contact.model.ContactChangeSet;
 import com.ms3.sample.core.contact.model.ContactDTO;
-import com.ms3.sample.core.contact.model.ContactPage;
 import com.ms3.sample.core.contact.ContactService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ public class ContactController {
 
 	@GetMapping
 	@ResponseBody
-	public ContactPage getContacts(
+	public PageResponse<ContactDTO> getContacts(
 		@RequestParam(value = "page", defaultValue = "1") int page,
 		@RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
 		@RequestParam(value = "order", defaultValue = "desc") String order,

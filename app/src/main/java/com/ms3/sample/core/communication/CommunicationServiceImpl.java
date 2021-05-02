@@ -1,10 +1,10 @@
 package com.ms3.sample.core.communication;
 
+import com.ms3.sample.core.PageResponse;
 import com.ms3.sample.core.Pagination;
 import com.ms3.sample.core.communication.model.Communication;
 import com.ms3.sample.core.communication.model.CommunicationChangeSet;
 import com.ms3.sample.core.communication.model.CommunicationDTO;
-import com.ms3.sample.core.communication.model.CommunicationPage;
 import com.ms3.sample.core.contact.ContactRepo;
 import lombok.AllArgsConstructor;
 import lombok.val;
@@ -55,7 +55,7 @@ public class CommunicationServiceImpl implements CommunicationService {
 	}
 
 	@Override
-	public CommunicationPage getCommunicationsForContact(int contactId, int page, int size, String sortField, String order) {
+	public PageResponse<CommunicationDTO> getCommunicationsForContact(int contactId, int page, int size, String sortField, String order) {
 		if(!contactRepo.existsById(contactId)) {
 			throw new NoSuchElementException("Contact does not exist");
 		}
@@ -69,14 +69,12 @@ public class CommunicationServiceImpl implements CommunicationService {
 			.totalCount(communication.getSize())
 			.build();
 
-		return CommunicationPage.builder()
-			.pagination(pagination)
-			.communications(
-				communication.get()
-					.map(Communication::toDTO)
-					.collect(Collectors.toList())
-			)
-			.build();
+		return new PageResponse<>(
+			pagination,
+			communication.get()
+				.map(Communication::toDTO)
+				.collect(Collectors.toList())
+		);
 	}
 
 	@Override

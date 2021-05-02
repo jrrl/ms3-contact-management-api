@@ -1,6 +1,7 @@
 package com.ms3.sample.core.contact;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ms3.sample.core.PageResponse;
 import com.ms3.sample.core.Pagination;
 import com.ms3.sample.core.Util;
 import com.ms3.sample.core.address.AddressDTO;
@@ -8,7 +9,6 @@ import com.ms3.sample.core.address.AddressRepo;
 import com.ms3.sample.core.communication.CommunicationRepo;
 import com.ms3.sample.core.contact.model.ContactChangeSet;
 import com.ms3.sample.core.contact.model.ContactDTO;
-import com.ms3.sample.core.contact.model.ContactPage;
 import lombok.AllArgsConstructor;
 import lombok.val;
 import org.slf4j.Logger;
@@ -57,7 +57,7 @@ public class ContactServiceImpl implements ContactService {
 	}
 
 	@Override
-	public ContactPage getAllContacts(int page, int size, String sortField, String order) {
+	public PageResponse<ContactDTO> getAllContacts(int page, int size, String sortField, String order) {
 		val orderDirection = order == null || order.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
 
 		val contacts = contactRepo.findAll(PageRequest.of(page - 1, size, Sort.by(orderDirection, sortField)));
@@ -69,7 +69,7 @@ public class ContactServiceImpl implements ContactService {
 		val results =  contacts.get()
 			.map(Util::toContactDTO)
 			.collect(Collectors.toList());
-		return new ContactPage(pagination, results);
+		return new PageResponse<>(pagination, results);
 	}
 
 	@Override
