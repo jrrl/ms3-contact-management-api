@@ -66,7 +66,7 @@ public class CommunicationServiceImpl implements CommunicationService {
 		val pagination = Pagination.builder()
 			.page(page)
 			.count(communication.getNumberOfElements())
-			.totalCount(communication.getSize())
+			.totalCount((int)communication.getTotalElements())
 			.build();
 
 		return new PageResponse<>(

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ms3.sample.core.PageResponse;
 import com.ms3.sample.core.Pagination;
 import com.ms3.sample.core.Util;
-import com.ms3.sample.core.address.AddressDTO;
+import com.ms3.sample.core.address.model.AddressDTO;
 import com.ms3.sample.core.address.AddressRepo;
 import com.ms3.sample.core.communication.CommunicationRepo;
 import com.ms3.sample.core.contact.model.ContactChangeSet;

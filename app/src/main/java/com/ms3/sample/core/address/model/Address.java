@@ -1,4 +1,4 @@
-package com.ms3.sample.core.address;
+package com.ms3.sample.core.address.model;
 
 import com.ms3.sample.core.contact.model.Contact;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
 package com.ms3.sample.core;
 
-import com.ms3.sample.core.address.Address;
-import com.ms3.sample.core.address.AddressDTO;
+import com.ms3.sample.core.address.model.Address;
+import com.ms3.sample.core.address.model.AddressDTO;
 import com.ms3.sample.core.communication.model.Communication;
 import com.ms3.sample.core.communication.model.CommunicationDTO;
 import com.ms3.sample.core.contact.model.Contact;
