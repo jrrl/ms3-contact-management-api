@@ -1,4 +1,4 @@
-package com.ms3.contact;
+package com.ms3.sample;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

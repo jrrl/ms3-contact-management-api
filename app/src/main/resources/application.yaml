@@ -1,0 +1,18 @@
+logging:
+  level:
+    com.ms3.sample: debug
+
+spring:
+  datasource:
+    url: "jdbc:sqlserver://localhost:1433;database=tempdb"
+    password: "Password123!"
+    username: "sa"
+#  jpa:
+#    properties:
+#      javax:
+#        persistence:
+#          schema-generation:
+#            create-source: metadata
+#            scripts:
+#              action: create
+#              create-target: init-db.sql
