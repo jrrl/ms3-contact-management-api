@@ -23,6 +23,9 @@ jobs:
 
     steps:
       - checkout
+      - run: |
+          ls -l
+          ls -l ~
 
       # Download and cache dependencies
       - restore_cache:
