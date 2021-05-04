@@ -24,8 +24,8 @@ jobs:
     steps:
       - checkout
       - run: |
-          ls -l
-          ls -l ~
+        ls -l
+        ls -l ~
 
       # Download and cache dependencies
       - restore_cache:
@@ -42,4 +42,6 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # run tests!
-      - run: gradle test
+      - run: |
+        cd app
+        gradle test
