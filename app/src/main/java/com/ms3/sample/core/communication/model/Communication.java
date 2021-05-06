@@ -24,7 +24,7 @@ public class Communication {
 	String value;
 	@Column(nullable = false)
 	Boolean preferred;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false)
 	Contact contact;
 

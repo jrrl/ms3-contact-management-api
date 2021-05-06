@@ -32,8 +32,8 @@ public class Address {
 	String state;
 	@Column(nullable = false)
 	String zipCode;
-	@ManyToOne
-	@JoinColumn
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = false)
 	Contact contact;
 
 	public AddressDTO toDTO() {
