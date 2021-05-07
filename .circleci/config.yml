@@ -40,9 +40,6 @@ jobs:
           cd app
           gradle test
   build-image:
-    filters:
-      branches:
-        only: master
     docker:
       - image: circleci/openjdk:11-jdk
     working_directory: ~/repo
