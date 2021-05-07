@@ -1,6 +1,8 @@
 plugins {
   id("org.springframework.boot") version "2.4.5"
   id("io.spring.dependency-management") version "1.0.11.RELEASE"
+  id("com.google.cloud.tools.jib") version "3.0.0"
+  id("net.researchgate.release") version "2.8.1"
   id("java")
 }
 
@@ -34,3 +36,18 @@ tasks.withType<Test> {
   useJUnitPlatform()
 }
 
+jib {
+  to {
+    image = "docker.pkg.github.com/jrrl/ms3-contact-management-api/ms3-contact-api"
+    tags = setOf("latest")
+  }
+}
+
+release {
+  failOnCommitNeeded = false
+  failOnUnversionedFiles = false
+  failOnUpdateNeeded = false
+  preTagCommitMessage = "[skip ci] tag version: "
+  tagCommitMessage = "[skip ci] update to new version: "
+  newVersionCommitMessage = "[skip ci] new version commit: "
+}
