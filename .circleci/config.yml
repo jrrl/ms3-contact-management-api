@@ -66,6 +66,7 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "app/build.gradle.kts" }}
       - run: |
+          cd app
           gradle release -Drelease.useAutomaticVersion=true
       - run: |
           docker login https://docker.pkg.github.com -u jrrl -p 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
@@ -75,9 +76,11 @@ jobs:
 
 version: 2
 workflows:
-  version: 2
   build-and-test:
     jobs:
       - test
-      - build-image
+      - build-image:
+          filters:
+            branches:
+              only: master
 
