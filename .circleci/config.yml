@@ -74,14 +74,12 @@ jobs:
           cd app
           gradle jib -Djib.to.tags=$TAG,latest
 
-
+version: 2
 workflows:
-  version: 2
   build-and-test:
     jobs:
       - test
       - build-image:
-        filters:
-          branches:
-            only: master
-
+          filters:
+            branches:
+              only: master
