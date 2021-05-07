@@ -2,6 +2,7 @@
 #
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
+version: 2.1
 jobs:
   test:
     docker:
@@ -64,6 +65,8 @@ jobs:
           key: v1-dependencies-{{ checksum "app/build.gradle.kts" }}
       - run: |
           cd app
+          git config --global user.email "rafaelliban@gmail.com"
+          git config --global user.name "Janjan Liban"
           gradle release -Drelease.useAutomaticVersion=true
       - run: |
           docker login https://docker.pkg.github.com -u jrrl -p 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
@@ -71,7 +74,6 @@ jobs:
           cd app
           gradle jib -Djib.to.tags=$TAG,latest
 
-version: 2.1
 workflows:
   version: 2
   build-and-test:
