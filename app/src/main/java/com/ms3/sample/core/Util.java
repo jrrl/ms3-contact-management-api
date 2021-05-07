@@ -9,6 +9,7 @@ import com.ms3.sample.core.contact.model.ContactDTO;
 import lombok.val;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Util {
@@ -36,4 +37,14 @@ public class Util {
 			.map(Address::toDTO)
 			.collect(Collectors.toList());
 	};
+
+	public static Map<Object, Object> mergeUpdatesToTarget(Map<Object, Object> target, Map<Object, Object> changeSet) {
+		changeSet.forEach((key, value) -> {
+			if(target.containsKey(key) && value != null) {
+				target.put(key, value);
+			}
+		});
+
+		return target;
+	}
 }

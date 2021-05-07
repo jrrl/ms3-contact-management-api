@@ -7,6 +7,7 @@ import com.ms3.sample.core.Util;
 import com.ms3.sample.core.address.model.AddressDTO;
 import com.ms3.sample.core.address.AddressRepo;
 import com.ms3.sample.core.communication.CommunicationRepo;
+import com.ms3.sample.core.contact.model.Contact;
 import com.ms3.sample.core.contact.model.ContactChangeSet;
 import com.ms3.sample.core.contact.model.ContactDTO;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
@@ -31,7 +33,6 @@ public class ContactServiceImpl implements ContactService {
 	private final ContactRepo contactRepo;
 	private final AddressRepo addressRepo;
 	private final CommunicationRepo communicationRepo;
-	private final ObjectMapper objectMapper;
 
 	@Override
 	public ContactDTO createContact(ContactDTO newContact) {
