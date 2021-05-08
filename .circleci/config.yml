@@ -114,7 +114,7 @@ jobs:
       - run: |
           cd app
           TAG=$(git describe --abbrev=0 --tags)
-          gradle jibDockerBuild -Dimage.to.tag=latest,$TAG
+          gradle jibDockerBuild -Djib.to.tags=$TAG,latest
           docker image save gcr.io/ms3-contact-api/ms3-contact-api:$TAG -o images/image.tar
       - persist_to_workspace:
           root: ./images
@@ -141,20 +141,20 @@ workflows:
   build-and-test:
     jobs:
       - test
-      - build-image:
+#      - build-image:
+#          filters:
+#            branches:
+#              only: master
+      - build-to-google:
           filters:
             branches:
               only: master
-#      - build-to-google:
-#          filters:
-#            branches:
-#              only: master
-#          requires:
-#            - test
-#      - deploy-to-google:
-#          filters:
-#            branches:
-#              only: master
-#          requires:
-#            - build-to-google
+          requires:
+            - test
+      - deploy-to-google:
+          filters:
+            branches:
+              only: master
+          requires:
+            - build-to-google
 
