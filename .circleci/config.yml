@@ -87,7 +87,7 @@ jobs:
             - v1-dependencies-
       - run: |
           cd app
-          gradle dependencies
+          gradlew dependencies
       - save_cache:
           paths:
             - ~/.gradle
