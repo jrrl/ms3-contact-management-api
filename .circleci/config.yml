@@ -73,10 +73,24 @@ jobs:
           TAG=$(git describe --abbrev=0 --tags)
           cd app
           gradle jib -Djib.to.tags=$TAG,latest -Djib.to.image=docker.pkg.github.com/jrrl/ms3-contact-management-api/ms3-contact-api
-  build-to-google:
+  google-login:
     docker:
       - image: google/cloud-sdk
     working_directory: ~/repo
+    steps:
+      - checkout
+      - run: |
+          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+          gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+  build-to-google:
+    docker:
+      - image: circleci/openjdk:11-jdk
+    working_directory: ~/repo
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
     steps:
       - checkout
       # Download and cache dependencies
@@ -87,7 +101,7 @@ jobs:
             - v1-dependencies-
       - run: |
           cd app
-          ./gradlew dependencies
+          gradle dependencies
       - save_cache:
           paths:
             - ~/.gradle
@@ -96,14 +110,11 @@ jobs:
           cd app
           git config --global user.email "rafaelliban@gmail.com"
           git config --global user.name "Janjan Liban"
-          ./gradlew release -Drelease.useAutomaticVersion=true
+          gradle release -Drelease.useAutomaticVersion=true
       - run: |
-          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
-          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-          gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
           TAG=$(git describe --abbrev=0 --tags)
           cd app
-          ./gradlew jib -Djib.to.tags=$TAG,latest
+          gradle jib -Djib.to.tags=$TAG,latest
   deploy-to-google:
     docker:
       - image: google/cloud-sdk
@@ -111,12 +122,6 @@ jobs:
     steps:
       - checkout
       - run: |
-          git config --global user.email "rafaelliban@gmail.com"
-          git config --global user.name "Janjan Liban"
-      - run: |
-          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
-          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-          gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
           TAG=$(git describe --abbrev=0 --tags)
           gcloud run deploy ms3-contact-api --image gcr.io/ms3-contact-api/ms3-contact-api:$TAG
 
@@ -125,12 +130,16 @@ workflows:
   build-and-test:
     jobs:
       - test
+      - google-login:
+          filters:
+            branches:
+              only: master
       - build-to-google:
           filters:
             branches:
               only: master
           requires:
-            - test
+            - google-login
       - deploy-to-google:
           filters:
             branches:
