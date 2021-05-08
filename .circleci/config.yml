@@ -111,7 +111,7 @@ jobs:
           git config --global user.email "rafaelliban@gmail.com"
           git config --global user.name "Janjan Liban"
           gradle release -Drelease.useAutomaticVersion=true
-          docker login -u _json_key -p $GCLOUD_SERVICE_KEY https://gcr.io
+          echo $$GCLOUD_SERVICE_KEY | docker login -u _json_key --password-stdin https://gcr.io
           TAG=$(git describe --abbrev=0 --tags)
           gradle jib -Djib.to.tags=$TAG,latest
 
