@@ -38,7 +38,8 @@ tasks.withType<Test> {
 
 jib {
   to {
-    image = "docker.pkg.github.com/jrrl/ms3-contact-management-api/ms3-contact-api"
+//    image = "docker.pkg.github.com/jrrl/ms3-contact-management-api/ms3-contact-api"
+    image = "gcr.io/ms3-contact-api/ms3-contact-api"
     tags = setOf("latest")
   }
 }

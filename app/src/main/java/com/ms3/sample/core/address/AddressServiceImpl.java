@@ -3,6 +3,7 @@ package com.ms3.sample.core.address;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ms3.sample.core.PageResponse;
 import com.ms3.sample.core.Pagination;
+import com.ms3.sample.core.Util;
 import com.ms3.sample.core.address.model.Address;
 import com.ms3.sample.core.address.model.AddressChangeSet;
 import com.ms3.sample.core.address.model.AddressDTO;
@@ -33,7 +34,14 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public AddressDTO createAddress(int contactId, AddressDTO addressDTO) {
-		return null;
+		if(!contactRepo.existsById(contactId)) {
+			throw new NoSuchElementException("Contact does not exist");
+		}
+
+		val contact = contactRepo.getOne(contactId);
+		val addressToCreate = addressDTO.toEntity(contact);
+
+		return addressRepo.saveAndFlush(addressToCreate).toDTO();
 	}
 
 	@Override
@@ -48,14 +56,9 @@ public class AddressServiceImpl implements AddressService {
 		var address = addressRepo.getOne(addressId);
 		val contact = address.getContact();
 
-		val addressMap = objectMapper.convertValue(address.toDTO(), Map.class);
+		var addressMap = objectMapper.convertValue(address.toDTO(), Map.class);
 		val changeSetMap = objectMapper.convertValue(addressDTO, Map.class);
-
-		changeSetMap.forEach((key, value) -> {
-			if(addressMap.containsKey(key) && value != null) {
-				addressMap.put(key, value);
-			}
-		});
+		addressMap = Util.mergeUpdatesToTarget(addressMap, changeSetMap);
 
 		address = objectMapper.convertValue(addressMap, Address.class);
 		address.setContact(contact);
