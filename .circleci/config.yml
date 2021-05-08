@@ -114,17 +114,24 @@ jobs:
           echo $$GCLOUD_SERVICE_KEY | docker login -u _json_key --password-stdin https://gcr.io
           TAG=$(git describe --abbrev=0 --tags)
           gradle jibDockerBuild
-          docker save -o ~/images gcr.io/ms3-contact-api/ms3-contact-api:$TAG
-      - persist_to_workspace
+          docker image save gcr.io/ms3-contact-api/ms3-contact-api:$TAG -o images/image.tar
+      - persist_to_workspace:
+          root: ./images
+          paths:
+            - image.tar
+
   deploy-to-google:
     docker:
       - image: google/cloud-sdk
     working_directory: ~/repo
     steps:
       - checkout
+      - attach_workspace:
+          at: images
       - run: |
           echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
           TAG=$(git describe --abbrev=0 --tags)
+          docker load --input images/image.tar
           docker push gcr.io/ms3-contact-api/ms3-contact-api:$TAG
           gcloud run deploy ms3-contact-api --image gcr.io/ms3-contact-api/ms3-contact-api:$TAG
 
