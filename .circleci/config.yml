@@ -133,7 +133,16 @@ workflows:
   build-and-test:
     jobs:
       - test
-      - build-image:
+      - build-to-google:
           filters:
             branches:
               only: master
+          requires:
+            - test
+      - deploy-to-google:
+          filters:
+            branches:
+              only: master
+          requires:
+            - build-to-google
+
