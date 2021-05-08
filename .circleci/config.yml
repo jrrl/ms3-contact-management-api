@@ -107,10 +107,10 @@ jobs:
           cd app
           TAG=$(git describe --abbrev=0 --tags)
           gradle jibDockerBuild -Djib.to.tags=$TAG,latest
-          mkdir -m777 images
-          docker image save gcr.io/ms3-contact-api/ms3-contact-api:$TAG -o images/image.tar
+          mkdir -m777 ~/repo/images
+          docker image save gcr.io/ms3-contact-api/ms3-contact-api:$TAG -o ~/repo/images/image.tar
       - persist_to_workspace:
-          root: images
+          root: ~/repo/images
           paths:
             - image.tar
 
@@ -121,13 +121,13 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: images
+          at: ~/repo/images
       - run: |
           echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
           gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
           gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
           TAG=$(git describe --abbrev=0 --tags)
-          docker load --input images/image.tar
+          docker load --input ~/repo/images/image.tar
           docker push gcr.io/ms3-contact-api/ms3-contact-api:$TAG
           gcloud run deploy ms3-contact-api --image gcr.io/ms3-contact-api/ms3-contact-api:$TAG
 
