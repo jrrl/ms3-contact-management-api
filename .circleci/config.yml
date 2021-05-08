@@ -141,16 +141,20 @@ workflows:
   build-and-test:
     jobs:
       - test
-      - build-to-google:
+      - build-image:
           filters:
             branches:
               only: master
-          requires:
-            - test
-      - deploy-to-google:
-          filters:
-            branches:
-              only: master
-          requires:
-            - build-to-google
+#      - build-to-google:
+#          filters:
+#            branches:
+#              only: master
+#          requires:
+#            - test
+#      - deploy-to-google:
+#          filters:
+#            branches:
+#              only: master
+#          requires:
+#            - build-to-google
 
