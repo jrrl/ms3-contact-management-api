@@ -94,6 +94,7 @@ jobs:
     steps:
       - checkout
       # Download and cache dependencies
+      - setup_remote_docker
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "app/build.gradle.kts" }}
