@@ -6,9 +6,11 @@ import com.ms3.sample.core.communication.model.CommunicationDTO;
 import com.ms3.sample.core.communication.CommunicationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/v1/contacts/{contactId}/communications")
@@ -51,11 +53,16 @@ public class CommunicationController {
 		return communicationService.updateCommunication(contactId, commId, communicationChangeSet);
 	}
 
-	@DeleteMapping
+	@DeleteMapping("/{commId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteContent(
 		@PathVariable Integer contactId,
 		@PathVariable Integer commId) {
 		communicationService.deleteCommunication(contactId, commId);
+	}
+
+	@ExceptionHandler
+	public ResponseEntity<String> handleNotFound(NoSuchElementException e) {
+		return ResponseEntity.notFound().build();
 	}
 }

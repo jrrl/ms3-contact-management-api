@@ -34,7 +34,14 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public AddressDTO createAddress(int contactId, AddressDTO addressDTO) {
-		return null;
+		if(!contactRepo.existsById(contactId)) {
+			throw new NoSuchElementException("Contact does not exist");
+		}
+
+		val contact = contactRepo.getOne(contactId);
+		val addressToCreate = addressDTO.toEntity(contact);
+
+		return addressRepo.saveAndFlush(addressToCreate).toDTO();
 	}
 
 	@Override
