@@ -111,9 +111,9 @@ jobs:
           git config --global user.email "rafaelliban@gmail.com"
           git config --global user.name "Janjan Liban"
           gradle release -Drelease.useAutomaticVersion=true
-          echo $$GCLOUD_SERVICE_KEY | docker login -u _json_key --password-stdin https://gcr.io
+      - run: |
           TAG=$(git describe --abbrev=0 --tags)
-          gradle jibDockerBuild
+          gradle jibDockerBuild -Dimage.to.tag=latest,$TAG
           docker image save gcr.io/ms3-contact-api/ms3-contact-api:$TAG -o images/image.tar
       - persist_to_workspace:
           root: ./images
