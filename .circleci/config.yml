@@ -123,11 +123,11 @@ workflows:
   build-and-test:
     jobs:
       - test
-      - build-image:
+      - build-to-google:
           filters:
             branches:
               only: master
-      - build-to-image:
+      - deploy-to-google:
           filters:
             branches:
               only: master
