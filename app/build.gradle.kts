@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.example"
-version = "0.0.1-SNAPSHOT"
+version = project.version
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {
