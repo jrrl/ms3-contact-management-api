@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: "jdbc:sqlserver://localhost:1433;database=tempdb"
-    password: "Password123!"
-    username: "sa"
+    url: "jdbc:sqlserver://35.222.89.234:1433;database=tempdb"
+    password: "G8E6MhM6oCjtR&"
+    username: "ms3"
   jackson:
     mapper:
       accept-case-insensitive-enums: true
