@@ -111,6 +111,7 @@ jobs:
           git config --global user.email "rafaelliban@gmail.com"
           git config --global user.name "Janjan Liban"
           gradle release -Drelease.useAutomaticVersion=true
+          docker login -u _json_key --p $GCLOUD_SERVICE_KEY https://gcr.io
           TAG=$(git describe --abbrev=0 --tags)
           gradle jib -Djib.to.tags=$TAG,latest
 
@@ -121,6 +122,7 @@ jobs:
     steps:
       - checkout
       - run: |
+          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
           TAG=$(git describe --abbrev=0 --tags)
           gcloud run deploy ms3-contact-api --image gcr.io/ms3-contact-api/ms3-contact-api:$TAG
 
