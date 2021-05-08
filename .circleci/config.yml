@@ -111,10 +111,9 @@ jobs:
           git config --global user.email "rafaelliban@gmail.com"
           git config --global user.name "Janjan Liban"
           gradle release -Drelease.useAutomaticVersion=true
-      - run: |
           TAG=$(git describe --abbrev=0 --tags)
-          cd app
           gradle jib -Djib.to.tags=$TAG,latest
+
   deploy-to-google:
     docker:
       - image: google/cloud-sdk
