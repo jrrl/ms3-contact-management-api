@@ -111,13 +111,11 @@ jobs:
           git config --global user.email "rafaelliban@gmail.com"
           git config --global user.name "Janjan Liban"
           gradle release -Drelease.useAutomaticVersion=true
-#          echo $$GCLOUD_SERVICE_KEY | docker login -u _json_key --password-stdin https://gcr.io
-           curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/releases/download/v${VERSION}/docker-credential-gcr_${OS}_${ARCH}-${VERSION}.tar.gz" \
-               | tar xz --to-stdout ./docker-credential-gcr \
-               > /usr/local/bin/docker-credential-gcr && chmod +x /usr/local/bin/docker-credential-gcr
+          echo $$GCLOUD_SERVICE_KEY | docker login -u _json_key --password-stdin https://gcr.io
           TAG=$(git describe --abbrev=0 --tags)
-          gradle jib -Djib.to.tags=$TAG,latest -Djib.from.credHelper=gcr
-
+          gradle jibDockerBuild
+          docker save -o ~/images gcr.io/ms3-contact-api/ms3-contact-api:$TAG
+      - persist_to_workspace
   deploy-to-google:
     docker:
       - image: google/cloud-sdk
@@ -127,6 +125,7 @@ jobs:
       - run: |
           echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
           TAG=$(git describe --abbrev=0 --tags)
+          docker push gcr.io/ms3-contact-api/ms3-contact-api:$TAG
           gcloud run deploy ms3-contact-api --image gcr.io/ms3-contact-api/ms3-contact-api:$TAG
 
 workflows:
@@ -134,19 +133,7 @@ workflows:
   build-and-test:
     jobs:
       - test
-      - google-login:
+      - build-image:
           filters:
             branches:
               only: master
-      - build-to-google:
-          filters:
-            branches:
-              only: master
-          requires:
-            - google-login
-      - deploy-to-google:
-          filters:
-            branches:
-              only: master
-          requires:
-            - build-to-google
