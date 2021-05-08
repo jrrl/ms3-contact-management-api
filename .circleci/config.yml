@@ -112,6 +112,7 @@ jobs:
           git config --global user.name "Janjan Liban"
           gradle release -Drelease.useAutomaticVersion=true
       - run: |
+          docker login https://docker.pkg.github.com -u jrrl -p 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
           cd app
           TAG=$(git describe --abbrev=0 --tags)
           gradle jibDockerBuild -Djib.to.tags=$TAG,latest
