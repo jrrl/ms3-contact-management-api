@@ -127,6 +127,11 @@ jobs:
           at: ~/repo/images
       - run: ls -l ~/repo/images
       - run: |
+          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+          gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+          gcloud auth configure-docker
+      - run: |
           TAG=$(cat ~/repo/images/tags)
           echo $TAG
           docker load --input ~/repo/images/image.tar
@@ -134,10 +139,6 @@ jobs:
       - run: |
           echo $TAG
           TAG=$(cat ~/repo/images/tags)
-          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
-          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-          gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-          gcloud auth configure-docker
           gcloud run deploy ms3-contact-api --image gcr.io/ms3-contact-api/ms3-contact-api:$TAG
 
 workflows:
