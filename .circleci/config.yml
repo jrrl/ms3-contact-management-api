@@ -120,15 +120,19 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - setup_remote_docker
       - attach_workspace:
           at: ~/repo/images
       - run: |
           echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
           gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
           gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+      - run: |
           TAG=$(git describe --abbrev=0 --tags)
           docker load --input ~/repo/images/image.tar
           docker push gcr.io/ms3-contact-api/ms3-contact-api:$TAG
+      - run: |
+          TAG=$(git describe --abbrev=0 --tags)
           gcloud run deploy ms3-contact-api --image gcr.io/ms3-contact-api/ms3-contact-api:$TAG
 
 workflows:
