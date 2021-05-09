@@ -139,7 +139,10 @@ jobs:
       - run: |
           echo $TAG
           TAG=$(cat ~/repo/images/tags)
-          gcloud run deploy ms3-contact-api --image gcr.io/ms3-contact-api/ms3-contact-api:$TAG --platform=managed --region=${GOOGLE_COMPUTE_ZONE}
+          gcloud run deploy ms3-contact-api --image gcr.io/ms3-contact-api/ms3-contact-api:$TAG \
+              --platform=managed --region=${GOOGLE_COMPUTE_ZONE} \
+              --add-cloudsql-instances ${GOOGLE_SQL_CONNECTION} \
+              --update-env-vars INSTANCE_CONNECTION_NAME=${GOOGLE_SQL_CONNECTION}
 
 workflows:
   version: 2
