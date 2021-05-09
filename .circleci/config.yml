@@ -114,7 +114,7 @@ jobs:
           root: ~/repo/images
           paths:
             - image.tar
-            - tags.txt
+            - tags
 
   deploy-to-google:
     docker:
@@ -136,7 +136,8 @@ jobs:
           docker load --input ~/repo/images/image.tar
           docker push gcr.io/ms3-contact-api/ms3-contact-api:$TAG
       - run: |
-          TAG=$(cat ~/repo/images/tag)
+          echo $TAG
+          TAG=$(cat ~/repo/images/tags)
           gcloud run deploy ms3-contact-api --image gcr.io/ms3-contact-api/ms3-contact-api:$TAG
 
 workflows:
