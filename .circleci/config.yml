@@ -139,7 +139,7 @@ jobs:
       - run: |
           echo $TAG
           TAG=$(cat ~/repo/images/tags)
-          gcloud run deploy ms3-contact-api --image gcr.io/ms3-contact-api/ms3-contact-api:$TAG --platform=managed
+          gcloud run deploy ms3-contact-api --image gcr.io/ms3-contact-api/ms3-contact-api:$TAG --platform=managed --region=${GOOGLE_COMPUTE_ZONE}
 
 workflows:
   version: 2
