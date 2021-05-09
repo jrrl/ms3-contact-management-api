@@ -104,10 +104,10 @@ jobs:
           gradle release -Drelease.useAutomaticVersion=true
       - run: |
           cd app
+          mkdir -m777 ~/repo/images
           TAG=$(git describe --abbrev=0 --tags)
           echo $TAG > ~/repo/images/tags
           gradle jibDockerBuild -Djib.to.tags=$TAG,latest
-          mkdir -m777 ~/repo/images
           docker image save gcr.io/ms3-contact-api/ms3-contact-api:$TAG -o ~/repo/images/image.tar
       - persist_to_workspace:
           root: ~/repo/images
