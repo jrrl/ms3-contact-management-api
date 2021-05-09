@@ -25,7 +25,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.springframework.boot:spring-boot-starter-web")
-  implementation("com.google.cloud.sql:cloud-sql-connector-jdbc-sqlserver:1.2.3")
+//  implementation("com.google.cloud.sql:cloud-sql-connector-jdbc-sqlserver:1.2.3")
   compileOnly("org.projectlombok:lombok")
   runtimeOnly("com.microsoft.sqlserver:mssql-jdbc")
   annotationProcessor("org.projectlombok:lombok")
