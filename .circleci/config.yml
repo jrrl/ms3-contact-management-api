@@ -106,8 +106,8 @@ jobs:
           cd app
           mkdir -m777 ~/repo/images
           TAG=$(git describe --abbrev=0 --tags)
-          echo $TAG > ~/repo/images/tags.txt
-          cat ~/repo/images/tags.txt
+          echo $TAG > ~/repo/images/tags
+          cat ~/repo/images/tags
           gradle jibDockerBuild -Djib.to.tags=$TAG,latest
           docker image save gcr.io/ms3-contact-api/ms3-contact-api:$TAG -o ~/repo/images/image.tar
       - persist_to_workspace:
@@ -125,13 +125,13 @@ jobs:
       - setup_remote_docker
       - attach_workspace:
           at: ~/repo/images
+      - run: ls -l ~/repo/images
       - run: |
           echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
           gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
           gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-          ls -l ~/repo/images
       - run: |
-          TAG=$(cat ~/repo/images/tag)
+          TAG=$(cat ~/repo/images/tags)
           echo $TAG
           docker load --input ~/repo/images/image.tar
           docker push gcr.io/ms3-contact-api/ms3-contact-api:$TAG
