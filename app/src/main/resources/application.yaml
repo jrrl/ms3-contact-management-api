@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: "jdbc:sqlserver://35.222.89.234:1433;database=tempdb"
+    url: "jdbc:sqlserver://35.222.89.234:1433;databaseName=tempdb;socketFactoryClass=com.google.cloud.sql.sqlserver.SocketFactory;socketFactoryConstructorArg=ms3-contact-api:us-central1:ms3-contact-db"
     password: "G8E6MhM6oCjtR&"
     username: "ms3"
   jackson:
