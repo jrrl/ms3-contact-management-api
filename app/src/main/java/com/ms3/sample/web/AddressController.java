@@ -5,6 +5,7 @@ import com.ms3.sample.core.address.AddressService;
 import com.ms3.sample.core.address.model.AddressChangeSet;
 import com.ms3.sample.core.address.model.AddressDTO;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,6 +56,15 @@ public class AddressController {
 		@RequestBody AddressChangeSet addressChangeSet
 	) {
 		return addressService.updateAddress(contactId, addressId, addressChangeSet);
+	}
+
+	@DeleteMapping("/{addressId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteAddress(
+		@PathVariable Integer contactId,
+		@PathVariable Integer addressId
+	) {
+		addressService.deleteAddress(contactId, addressId);
 	}
 
 	@ExceptionHandler

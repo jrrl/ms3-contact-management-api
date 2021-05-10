@@ -1,5 +1,6 @@
 package com.ms3.sample.web;
 
+import com.ms3.sample.core.InvalidRequestException;
 import com.ms3.sample.core.PageResponse;
 import com.ms3.sample.core.communication.model.CommunicationChangeSet;
 import com.ms3.sample.core.communication.model.CommunicationDTO;
@@ -64,5 +65,10 @@ public class CommunicationController {
 	@ExceptionHandler
 	public ResponseEntity<String> handleNotFound(NoSuchElementException e) {
 		return ResponseEntity.notFound().build();
+	}
+
+	@ExceptionHandler
+	public ResponseEntity<String> handleNotFound(InvalidRequestException e) {
+		return ResponseEntity.badRequest().build();
 	}
 }

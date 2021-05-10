@@ -1,5 +1,6 @@
 package com.ms3.sample.core.communication;
 
+import com.ms3.sample.core.InvalidRequestException;
 import com.ms3.sample.core.PageResponse;
 import com.ms3.sample.core.Pagination;
 import com.ms3.sample.core.communication.model.Communication;
@@ -104,6 +105,9 @@ public class CommunicationServiceImpl implements CommunicationService {
 		}
 		if(!communicationRepo.existsById(commId)) {
 			throw new NoSuchElementException("Communication does not exist");
+		}
+		if(communicationRepo.countByContactId(contactId) <= 1) {
+			throw new InvalidRequestException();
 		}
 		communicationRepo.deleteById(commId);
 	}

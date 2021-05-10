@@ -10,4 +10,5 @@ import java.util.List;
 public interface CommunicationRepo extends JpaRepository<Communication, Integer> {
 	List<Communication> findByContactId(int contactId);
 	Page<Communication> findByContactId(int contactId, Pageable pageable);
+	Integer countByContactId(int contactId);
 }
