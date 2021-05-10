@@ -1,0 +1,1301 @@
+{
+	"info": {
+		"_postman_id": "ea82443b-c496-4835-bc2a-dacf61ff1e53",
+		"name": "ms3-contact-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Contacts",
+			"item": [
+				{
+					"name": "Create contact",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"John\", \r\n    \"lastName\": \"Doe\", \r\n    \"dateOfBirth\": \"1990-12-25\", \r\n    \"gender\": \"M\", \r\n    \"addresses\": [\r\n        {\r\n            \"type\": \"HOME\", \r\n            \"streetNumber\": \"23\", \r\n            \"street\": \"test street\", \r\n            \"city\": \"New York\", \r\n            \"state\": \"NY\", \r\n            \"zipCode\": \"12345-1234\"\r\n        }\r\n    ],\r\n    \"communications\": [\r\n        {\r\n            \"type\": \"EMAIL\", \r\n            \"value\": \"test@test.com\", \r\n            \"preferred\": true\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"contacts"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create contact - Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"John\", \r\n    \"lastName\": \"Doe\", \r\n    \"dateOfBirth\": \"1990-12-25\", \r\n    \"gender\": \"M\", \r\n    \"addresses\": [\r\n        {\r\n            \"type\": \"HOME\", \r\n            \"streetNumber\": \"23\", \r\n            \"street\": \"test street\", \r\n            \"city\": \"New York\", \r\n            \"state\": \"NY\", \r\n            \"zipCode\": \"12345-1234\"\r\n        }\r\n    ],\r\n    \"communications\": [\r\n        {\r\n            \"type\": \"EMAIL\", \r\n            \"value\": \"test@test.com\", \r\n            \"preferred\": true\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/contacts",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"contacts"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 May 2021 09:21:46 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"dateOfBirth\": \"1990-12-25\",\n    \"gender\": \"M\",\n    \"title\": null,\n    \"addresses\": [\n        {\n            \"id\": 2,\n            \"type\": \"HOME\",\n            \"streetNumber\": \"23\",\n            \"street\": \"test street\",\n            \"unit\": null,\n            \"city\": \"New York\",\n            \"state\": \"NY\",\n            \"zipCode\": \"12345-1234\"\n        }\n    ],\n    \"communications\": [\n        {\n            \"id\": 2,\n            \"type\": \"EMAIL\",\n            \"value\": \"test@test.com\",\n            \"preferred\": true\n        }\n    ]\n}"
+						},
+						{
+							"name": "Create contact - Invalid Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"John\", \r\n    \"lastName\": \"Doe\", \r\n    // \"dateOfBirth\": \"1990-12-25\", \r\n    \"gender\": \"M\", \r\n    \"addresses\": [\r\n        {\r\n            \"type\": \"HOME\", \r\n            \"streetNumber\": \"23\", \r\n            \"street\": \"test street\", \r\n            \"city\": \"New York\", \r\n            \"state\": \"NY\", \r\n            \"zipCode\": \"12345-1234\"\r\n        }\r\n    ],\r\n    \"communications\": [\r\n        {\r\n            \"type\": \"EMAIL\", \r\n            \"value\": \"test@test.com\", \r\n            \"preferred\": true\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/contacts",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"contacts"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 May 2021 09:22:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2021-05-07T09:22:20.584+00:00\",\n    \"status\": 400,\n    \"error\": \"Bad Request\",\n    \"message\": \"\",\n    \"path\": \"/v1/contacts\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Contact",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"new name\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/1",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"contacts",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Contact - Success",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"new name\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/contacts/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"contacts",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 May 2021 09:22:57 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"firstName\": \"new name\",\n    \"lastName\": \"Doe\",\n    \"dateOfBirth\": \"1990-12-25\",\n    \"gender\": \"M\",\n    \"title\": null,\n    \"addresses\": [\n        {\n            \"id\": 1,\n            \"type\": \"HOME\",\n            \"streetNumber\": \"30\",\n            \"street\": \"test street\",\n            \"unit\": null,\n            \"city\": \"New York\",\n            \"state\": \"NY\",\n            \"zipCode\": \"12345-1234\"\n        }\n    ],\n    \"communications\": [\n        {\n            \"id\": 1,\n            \"type\": \"EMAIL\",\n            \"value\": \"test@test.com\",\n            \"preferred\": true\n        }\n    ]\n}"
+						},
+						{
+							"name": "Update Contact - Not Found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"new name\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/contacts/1000",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"contacts",
+										"1000"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 May 2021 09:23:39 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get Contact",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/1",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"contacts",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Contact - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/contacts/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"contacts",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 May 2021 09:24:26 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"firstName\": \"new name\",\n    \"lastName\": \"Doe\",\n    \"dateOfBirth\": \"1990-12-25\",\n    \"gender\": \"M\",\n    \"title\": null,\n    \"addresses\": [\n        {\n            \"id\": 1,\n            \"type\": \"HOME\",\n            \"streetNumber\": \"30\",\n            \"street\": \"test street\",\n            \"unit\": null,\n            \"city\": \"New York\",\n            \"state\": \"NY\",\n            \"zipCode\": \"12345-1234\"\n        }\n    ],\n    \"communications\": [\n        {\n            \"id\": 1,\n            \"type\": \"EMAIL\",\n            \"value\": \"test@test.com\",\n            \"preferred\": true\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Contacts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts?pageSize=10&page=1&sortBy=firstName",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"contacts"
+							],
+							"query": [
+								{
+									"key": "pageSize",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "sortBy",
+									"value": "firstName"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Contacts",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/contacts?pageSize=10&page=1&sortBy=firstName",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"contacts"
+									],
+									"query": [
+										{
+											"key": "pageSize",
+											"value": "10"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "sortBy",
+											"value": "firstName"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 May 2021 09:27:04 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"pagination\": {\n        \"page\": 1,\n        \"totalCount\": 2,\n        \"count\": 2\n    },\n    \"items\": [\n        {\n            \"id\": 2,\n            \"firstName\": \"aaaa\",\n            \"lastName\": \"Doe\",\n            \"dateOfBirth\": \"1990-12-25\",\n            \"gender\": \"M\",\n            \"title\": null,\n            \"addresses\": [\n                {\n                    \"id\": 2,\n                    \"type\": \"HOME\",\n                    \"streetNumber\": \"23\",\n                    \"street\": \"test street\",\n                    \"unit\": null,\n                    \"city\": \"New York\",\n                    \"state\": \"NY\",\n                    \"zipCode\": \"12345-1234\"\n                }\n            ],\n            \"communications\": [\n                {\n                    \"id\": 2,\n                    \"type\": \"EMAIL\",\n                    \"value\": \"test@test.com\",\n                    \"preferred\": true\n                }\n            ]\n        },\n        {\n            \"id\": 1,\n            \"firstName\": \"new name\",\n            \"lastName\": \"Doe\",\n            \"dateOfBirth\": \"1990-12-25\",\n            \"gender\": \"M\",\n            \"title\": null,\n            \"addresses\": [\n                {\n                    \"id\": 1,\n                    \"type\": \"HOME\",\n                    \"streetNumber\": \"30\",\n                    \"street\": \"test street\",\n                    \"unit\": null,\n                    \"city\": \"New York\",\n                    \"state\": \"NY\",\n                    \"zipCode\": \"12345-1234\"\n                }\n            ],\n            \"communications\": [\n                {\n                    \"id\": 1,\n                    \"type\": \"EMAIL\",\n                    \"value\": \"test@test.com\",\n                    \"preferred\": true\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Contact",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/1",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"contacts",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Contact",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/contacts/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"contacts",
+										"1"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 07 May 2021 09:28:17 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Communications",
+			"item": [
+				{
+					"name": "Get Communications For Contact",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/1/communications?sortBy=type",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"contacts",
+								"1",
+								"communications"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "type"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Communications For Contact",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/contacts/1/communications",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"contacts",
+										"1",
+										"communications"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 May 2021 23:22:32 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"pagination\": {\n        \"page\": 1,\n        \"totalCount\": 2,\n        \"count\": 2\n    },\n    \"items\": [\n        {\n            \"id\": 2,\n            \"type\": \"PHONE\",\n            \"value\": \"123456789\",\n            \"preferred\": false\n        },\n        {\n            \"id\": 1,\n            \"type\": \"EMAIL\",\n            \"value\": \"test@test.com\",\n            \"preferred\": true\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Communications For Contact",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"phone\",\r\n    \"value\": \"123456789\",\r\n    \"preferred\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/1/communications",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"contacts",
+								"1",
+								"communications"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Communications For Contact",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"phone\",\r\n    \"value\": \"123456789\",\r\n    \"preferred\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/contacts/1/communications",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"contacts",
+										"1",
+										"communications"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 May 2021 23:22:06 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"type\": \"PHONE\",\n    \"value\": \"123456789\",\n    \"preferred\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Communication",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/1/communications/1",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"contacts",
+								"1",
+								"communications",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Communication",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/contacts/1/communications/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"contacts",
+										"1",
+										"communications",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 May 2021 23:25:24 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"type\": \"EMAIL\",\n    \"value\": \"test@test.com\",\n    \"preferred\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Communication",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/1/communications/5",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"contacts",
+								"1",
+								"communications",
+								"5"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Communication",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/contacts/1/communications/5",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"contacts",
+										"1",
+										"communications",
+										"5"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 07 May 2021 23:27:08 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Update Communication",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"email\",\r\n    \"value\": \"test2@test.com\",\r\n    \"preferred\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/1/communications/2",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"contacts",
+								"1",
+								"communications",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Communication",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"email\",\r\n    \"value\": \"test2@test.com\",\r\n    \"preferred\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/contacts/1/communications/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"contacts",
+										"1",
+										"communications",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 May 2021 23:27:49 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"type\": \"PHONE\",\n    \"value\": \"test2@test.com\",\n    \"preferred\": false\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Address",
+			"item": [
+				{
+					"name": "Create address for contact",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"HOME\",\r\n    \"streetNumber\": \"100\",\r\n    \"street\": \"test street\",\r\n    \"city\": \"New York\",\r\n    \"state\": \"NY\",\r\n    \"zipCode\": \"12345-1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/1/addresses",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"contacts",
+								"1",
+								"addresses"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create address for contact",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"HOME\",\r\n    \"streetNumber\": \"100\",\r\n    \"street\": \"test street\",\r\n    \"city\": \"New York\",\r\n    \"state\": \"NY\",\r\n    \"zipCode\": \"12345-1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/contacts/1/addresses",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"contacts",
+										"1",
+										"addresses"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 May 2021 23:43:42 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"type\": \"HOME\",\n    \"streetNumber\": \"100\",\n    \"street\": \"test street\",\n    \"unit\": null,\n    \"city\": \"New York\",\n    \"state\": \"NY\",\n    \"zipCode\": \"12345-1234\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get addresses for contact",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/2/addresses",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"contacts",
+								"2",
+								"addresses"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get addresses for contact",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/2/addresses",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"contacts",
+										"2",
+										"addresses"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 09 May 2021 23:38:58 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Server",
+									"value": "Google Frontend"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "origin, x-requested-with, accept"
+								},
+								{
+									"key": "Access-Control-Max-Age",
+									"value": "3628800"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"pagination\": {\n        \"page\": 1,\n        \"totalCount\": 1,\n        \"count\": 1\n    },\n    \"items\": [\n        {\n            \"id\": 2,\n            \"type\": \"HOME\",\n            \"streetNumber\": \"23\",\n            \"street\": \"test street\",\n            \"unit\": null,\n            \"city\": \"New York\",\n            \"state\": \"NY\",\n            \"zipCode\": \"12345-1234\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get address",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/2/addresses/2",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"contacts",
+								"2",
+								"addresses",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get address",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/2/addresses/2",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"contacts",
+										"2",
+										"addresses",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 09 May 2021 23:38:25 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Server",
+									"value": "Google Frontend"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "origin, x-requested-with, accept"
+								},
+								{
+									"key": "Access-Control-Max-Age",
+									"value": "3628800"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"type\": \"HOME\",\n    \"streetNumber\": \"23\",\n    \"street\": \"test street\",\n    \"unit\": null,\n    \"city\": \"New York\",\n    \"state\": \"NY\",\n    \"zipCode\": \"12345-1234\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update address",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"street\": \"new street\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/2/addresses/2",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"contacts",
+								"2",
+								"addresses",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update address",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"street\": \"new street\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/2/addresses/2",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"contacts",
+										"2",
+										"addresses",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 10 May 2021 08:32:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Server",
+									"value": "Google Frontend"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "origin, x-requested-with, accept"
+								},
+								{
+									"key": "Access-Control-Max-Age",
+									"value": "3628800"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"type\": \"HOME\",\n    \"streetNumber\": \"23\",\n    \"street\": \"new street\",\n    \"unit\": null,\n    \"city\": \"New York\",\n    \"state\": \"NY\",\n    \"zipCode\": \"12345-1234\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete address",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{port}}/v1/contacts/2/addresses/2",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"contacts",
+								"2",
+								"addresses",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
